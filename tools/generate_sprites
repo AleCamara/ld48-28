@@ -10,6 +10,11 @@ montage ../assets/raw/player_0.png -tile 1x -geometry 32x32+0+0 -background tran
 ############
 cp ../assets/raw/level_dummy.png  ../assets/levels/level_dummy.png
 
+#################
+## FINISH LINE ##
+#################
+montage ../assets/raw/finish_line.png -tile 1x -geometry 32x64+0+0 -background transparent ../assets/textures/finish_line.png
+
 ### PREVIOUS SCRIPTS
 
 # CORE

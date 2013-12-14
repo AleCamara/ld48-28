@@ -22,6 +22,9 @@ package ld28
 		// Player data
 		[Embed(source = "../../assets/textures/player.png")] public static const PLAYER:Class;
 		
+		// Finish line
+		[Embed(source = "../../assets/textures/finish_line.png")] public static const FINISH_LINE:Class;
+		
 		// Actual data for creating levels
 		[Embed(source = "../../assets/levels/level_dummy.png")] public static const LEVEL_0:Class;
 		
@@ -40,18 +43,23 @@ package ld28
 													  0xFF284A7E,
 													  0xFFBF8B30];
 		// Background colours
-		public static const BG_COLOUR:Array = [0xFFFDF5E6,
+		/*public static const BG_COLOUR:Array = [0xFFFDF5E6,
 											   0xFFF5FFFA,
 											   0xFFE6E6FA,
 											   0xFFFFE4E1];
+		*/
+		public static const BG_COLOUR:Array = [0xFF9F869D,
+											   0xFF9F869D,
+											   0xFF9F869D,
+											   0xFF9F869D];
 		
 		// Tile for when colours overlap
 		public static var OVERLAPPING_TILE:BitmapData       = new BitmapData(16, 16, true, 0x00FFFFFF);
 		public static var OVERLAPPING_TILE_TOTAL:BitmapData = new BitmapData(16, 16, true, 0x00000000);
 		
 		public static const LEVEL_INFO:Array    = [
-				new LevelInfo(1, 10, 39, 16, 0, 0),
-				new LevelInfo(1, 10, 39, 16, 3, 1)
+				new LevelInfo(1, 10, 39, 16, 3, 0),
+				new LevelInfo(1, 10, 39, 16, 0, 1)
 			];
 		public static const NUM_LEVELS:uint = LEVEL_INFO.length;
 		

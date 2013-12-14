@@ -1,5 +1,6 @@
 package ld28 
 {
+	import ld28.entity.FinishLine;
 	import net.flashpunk.FP;
 	import net.flashpunk.World;
 	import net.flashpunk.utils.Input;
@@ -36,6 +37,12 @@ package ld28
 				Assets.LEVEL_INFO[_curLevel].getStartY() * Settings.TILE_HEIGHT,
 				Assets.LEVEL_INFO[_curLevel].getStartX() * Settings.TILE_WIDTH,
 				this);
+			
+			// Create finish line
+			_finishLine = new FinishLine(
+				Assets.LEVEL_INFO[_curLevel].getEndY() * Settings.TILE_HEIGHT,
+				Assets.LEVEL_INFO[_curLevel].getEndX() * Settings.TILE_WIDTH,
+				this);
 		}
 		
 		override public function begin():void
@@ -52,6 +59,7 @@ package ld28
 				add(_colourMaps[j]);
 			}
 			add(_player);
+			add(_finishLine);
 			
 			// Reset positions and initial colour
 			// We need to force it because it's probably that the RESET_TIME_THRESHOLD
@@ -67,8 +75,12 @@ package ld28
 				_player.x = Assets.LEVEL_INFO[_curLevel].getStartX() * Settings.TILE_WIDTH;
 				_player.y = Assets.LEVEL_INFO[_curLevel].getStartY() * Settings.TILE_HEIGHT;
 				
+				// Reposition finish line
+				_finishLine.x = (Assets.LEVEL_INFO[_curLevel].getEndX() - 1) * Settings.TILE_WIDTH + 5;
+				_finishLine.y = (Assets.LEVEL_INFO[_curLevel].getEndY() - 2) * Settings.TILE_HEIGHT - 8;
+				
 				// Show the initial colour
-				ChangeColour(Assets.LEVEL_INFO[_curLevel].getStartColour());
+				changeColour(Assets.LEVEL_INFO[_curLevel].getStartColour());
 				
 				_resetTime = 0.0;
 			}
@@ -92,19 +104,19 @@ package ld28
 			// Change colour
 			if (Input.check(KEY_COLOUR_1))
 			{
-				ChangeColour(0);
+				changeColour(0);
 			}
 			if (Input.check(KEY_COLOUR_2))
 			{
-				ChangeColour(1);
+				changeColour(1);
 			}
 			if (Input.check(KEY_COLOUR_3))
 			{
-				ChangeColour(2);
+				changeColour(2);
 			}
 			if (Input.check(KEY_COLOUR_4))
 			{
-				ChangeColour(3);
+				changeColour(3);
 			}
 			
 			// Reset
@@ -113,6 +125,7 @@ package ld28
 				reset();
 			}
 			
+			// Update rest of entities
 			super.update();
 		}
 		
@@ -143,6 +156,11 @@ package ld28
 			_player.recover();
 		}
 		
+		public function playerWon():void
+		{
+			trace("Oh! The player has got to the finish line! Sweet!");
+		}
+		
 		////////////////////////////////////////
 		// Private interface and data members //
 		////////////////////////////////////////
@@ -155,15 +173,16 @@ package ld28
 		private static const RESET_TIME_THRESHOLD:Number = 0.5;
 		
 		private var _curColour:uint = 0;
-		private var _curLevel:uint = 0;
+		private var _curLevel:uint  = 0;
 		
-		private var _player:Player = null;
-		private var _colourMaps:Array = null;
+		private var _player:Player         = null;
+		private var _colourMaps:Array      = null;
+		private var _finishLine:FinishLine = null;
 		
 		private var _resetTime:Number = 0.0;
 		
 		// Changes the colour of the map displayed (and interacted with)
-		private function ChangeColour(colour:uint):void
+		private function changeColour(colour:uint):void
 		{
 			if (!_player.collide("colour" + colour, _player.x, _player.y))
 			{

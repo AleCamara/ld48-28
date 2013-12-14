@@ -28,11 +28,22 @@ package ld28
 		public static const TILE_WIDTH:uint  = 16;
 		public static const TILE_HEIGHT:uint = 16;
 		
-		// Player dimensions
-		public static const PLAYER_HB_WIDTH:uint   = 16;
-		public static const PLAYER_HB_HEIGHT:uint  = 30;
-		public static const PLAYER_HB_XOFFSET:int  = -3;
-		public static const PLAYER_HB_YOFFSET:int  =  2;
+		// Hit boxes
+		public static const PLAYER_HB_WIDTH:uint  = 18;
+		public static const PLAYER_HB_HEIGHT:uint = 30;
+		public static const PLAYER_HB_XOFFSET:int = -2;
+		public static const PLAYER_HB_YOFFSET:int =  4;
+		public static const PLAYER_HB_RECT:Rectangle = new Rectangle(
+			PLAYER_HB_XOFFSET, PLAYER_HB_YOFFSET,
+			PLAYER_HB_WIDTH, PLAYER_HB_HEIGHT);
+			
+		public static const FINISH_LINE_HB_WIDTH:uint  =  10;
+		public static const FINISH_LINE_HB_HEIGHT:uint =   4;
+		public static const FINISH_LINE_HB_XOFFSET:int =  -7;
+		public static const FINISH_LINE_HB_YOFFSET:int = -50;
+		public static const FINISH_LINE_HB_RECT:Rectangle = new Rectangle(
+			FINISH_LINE_HB_XOFFSET, FINISH_LINE_HB_YOFFSET,
+			FINISH_LINE_HB_WIDTH, FINISH_LINE_HB_HEIGHT);
 		
 		// Colour information
 		public static const NUM_COLOURS:uint = Assets.PAINT_COLOUR.length;

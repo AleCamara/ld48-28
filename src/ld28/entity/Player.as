@@ -1,7 +1,9 @@
 package ld28.entity 
 {
+	import flash.geom.Rectangle;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Canvas;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
@@ -10,6 +12,7 @@ package ld28.entity
 	import ld28.Settings;
 	import ld28.LevelWorld;
 	import ld28.utils.ExtraMath;
+	import ld28.utils.DebugTools;
 	
 	/**
 	 * ...
@@ -24,7 +27,7 @@ package ld28.entity
 		public function Player(y:Number, x:Number, level:LevelWorld = null) 
 		{
 			// Load graphics
-			graphic = _image;
+			addGraphic(_image);
 			
 			// Define controls
 			Input.define(KEY_LEFT,  Key.LEFT,  Key.A);
@@ -41,6 +44,9 @@ package ld28.entity
 			
 			// Parent level
 			_level = level;
+			
+			// Canvas to debug collision hit boxes
+			addGraphic(DebugTools.createDebugCanvas(this));
 		}
 		
 		override public function update():void
@@ -111,6 +117,39 @@ package ld28.entity
 			{
 				_level.playerFell();
 			}
+			
+			// Handle blinks
+			if (_blinkTimer > 0.0)
+			{
+				_blinkTimer  -= timestep;
+				_changeBlink -= timestep;
+				
+				if (_blinkTimer < 0.0)
+				{
+					_blinkTimer = 0.0;
+					_changeBlink = 0.0;
+					visible = true;
+				}
+				else if (_changeBlink < 0.0)
+				{
+					_changeBlink += BLINK_TOTAL_TIME / NUM_BLINKS;
+					visible = !visible;
+				}
+			}
+			
+			// Check finish line
+			// Player must be on the ground and colliding with the finish line
+			if (!_isFlying && collide(FinishLine.COLLIDER_TYPE, x, y) != null)
+			{
+				_level.playerWon();
+			}
+		}
+		
+		// Handles the case when the player falls out of the screen
+		public function recover():void
+		{
+			_blinkTimer = BLINK_TOTAL_TIME;
+			_changeBlink = BLINK_TOTAL_TIME / NUM_BLINKS;
 		}
 		
 		////////////////////////////////////////
@@ -126,15 +165,21 @@ package ld28.entity
 		private static const JUMP_THRUST:Number          =  550.0;
 		private static const GRAVITY_PULL:Number         = 1750.0;
 		private static const TIMEFLYING_THRESHOLD:Number = 0.05;
+		private static const BLINK_TOTAL_TIME:Number     = 1.0;
+		private static const NUM_BLINKS:uint             = 10;
 		
-		private const _image:Image     = new Image(Assets.PLAYER);
+		private const _image:Image = new Image(Assets.PLAYER);
 		
-		private var _level:LevelWorld  = null;
+		private var _level:LevelWorld = null;
 		
-		private var _speedX:Number     = 0.0;
-		private var _speedY:Number     = 0.0;
+		private var _speedX:Number = 0.0;
+		private var _speedY:Number = 0.0;
+		
 		private var _timeFlying:Number = 0.0;
 		private var _isFlying:Boolean  = false;
+		
+		private var _blinkTimer:Number  = 0.0;
+		private var _changeBlink:Number = 0.0;
 		
 		// Checks if the player can displace by the increment specify without colliding
 		private function checkValidDisplacement(dx:Number, dy:Number):Boolean
