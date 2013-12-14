@@ -57,7 +57,11 @@ package ld28
 		public static var OVERLAPPING_TILE:BitmapData       = new BitmapData(16, 16, true, 0x00FFFFFF);
 		public static var OVERLAPPING_TILE_TOTAL:BitmapData = new BitmapData(16, 16, true, 0x00000000);
 		
-		public static const LEVEL_INFO:Array    = [
+		public static const LEVEL_DATA:Array = [
+				LEVEL_0,
+				LEVEL_0
+			];
+		public static const LEVEL_INFO:Array = [
 				new LevelInfo(1, 10, 39, 16, 3, 0),
 				new LevelInfo(1, 10, 39, 16, 0, 1)
 			];
