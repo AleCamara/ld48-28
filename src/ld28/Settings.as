@@ -1,8 +1,7 @@
 package ld28 
 {
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
 	import flash.geom.Rectangle;
+	
 	/**
 	 * ...
 	 * @author Alejandro Cámara

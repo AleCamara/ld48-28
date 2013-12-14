@@ -1,12 +1,13 @@
 package ld28 
 {
+	import net.flashpunk.FP;
 	import net.flashpunk.World;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	
 	import ld28.Assets;
-	import ld28.entities.GenericMap;
-	import ld28.entities.Player;
+	import ld28.level.GenericLevel;
+	import ld28.entity.Player;
 	
 	/**
 	 * ...
@@ -21,16 +22,20 @@ package ld28
 			Input.define(KEY_COLOUR_2, Key.DIGIT_2, Key.J);
 			Input.define(KEY_COLOUR_3, Key.DIGIT_3, Key.K);
 			Input.define(KEY_COLOUR_4, Key.DIGIT_4, Key.L);
+			Input.define(KEY_RESET,    Key.R);
 			
 			// Create maps for the level
 			_colourMaps = new Array(Settings.NUM_COLOURS);
 			for (var i:uint = 0; i < Settings.NUM_COLOURS; ++i)
 			{
-				_colourMaps[i] = new GenericMap(Assets.LEVEL_0, i, this);
+				_colourMaps[i] = new GenericLevel(Assets.LEVEL_0, Assets.LEVEL_INFO[0], i, this);
 			}
 			
 			// Create player
-			_player = new Player(0, 25, this);
+			_player = new Player(
+				Assets.LEVEL_INFO[_curLevel].getStartY() * Settings.TILE_HEIGHT,
+				Assets.LEVEL_INFO[_curLevel].getStartX() * Settings.TILE_WIDTH,
+				this);
 		}
 		
 		override public function begin():void
@@ -48,8 +53,25 @@ package ld28
 			}
 			add(_player);
 			
-			// Show the initial colour
-			ChangeColour(0);
+			// Reset positions and initial colour
+			// We need to force it because it's probably that the RESET_TIME_THRESHOLD
+			// has not been elapsed yet
+			reset(true);
+		}
+		
+		public function reset(forceReset:Boolean = false):void
+		{
+			if (forceReset || _resetTime > RESET_TIME_THRESHOLD)
+			{
+				// Reposition player
+				_player.x = Assets.LEVEL_INFO[_curLevel].getStartX() * Settings.TILE_WIDTH;
+				_player.y = Assets.LEVEL_INFO[_curLevel].getStartY() * Settings.TILE_HEIGHT;
+				
+				// Show the initial colour
+				ChangeColour(Assets.LEVEL_INFO[_curLevel].getStartColour());
+				
+				_resetTime = 0.0;
+			}
 		}
 		
 		override public function end():void
@@ -64,6 +86,10 @@ package ld28
 		
 		override public function update():void
 		{
+			// Update reset time
+			_resetTime += FP.elapsed;
+			
+			// Change colour
 			if (Input.check(KEY_COLOUR_1))
 			{
 				ChangeColour(0);
@@ -79,6 +105,12 @@ package ld28
 			if (Input.check(KEY_COLOUR_4))
 			{
 				ChangeColour(3);
+			}
+			
+			// Reset
+			if (Input.check(KEY_RESET))
+			{
+				reset();
 			}
 			
 			super.update();
@@ -107,7 +139,8 @@ package ld28
 		// Handles the case in which the player fall out of the screen (die?)
 		public function playerFell():void
 		{
-			trace("Player has fallen out of the screen.");
+			reset();
+			_player.recover();
 		}
 		
 		////////////////////////////////////////
@@ -117,11 +150,17 @@ package ld28
 		private static const KEY_COLOUR_2:String = "colour2";
 		private static const KEY_COLOUR_3:String = "colour3";
 		private static const KEY_COLOUR_4:String = "colour4";
+		private static const KEY_RESET:String    = "reset";
+		
+		private static const RESET_TIME_THRESHOLD:Number = 0.5;
 		
 		private var _curColour:uint = 0;
+		private var _curLevel:uint = 0;
 		
 		private var _player:Player = null;
 		private var _colourMaps:Array = null;
+		
+		private var _resetTime:Number = 0.0;
 		
 		// Changes the colour of the map displayed (and interacted with)
 		private function ChangeColour(colour:uint):void

@@ -1,4 +1,4 @@
-package ld28.entities 
+package ld28.entity 
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
@@ -21,7 +21,7 @@ package ld28.entities
 		// Public interface and data members //
 		///////////////////////////////////////
 		
-		public function Player(x:Number, y:Number, level:LevelWorld = null) 
+		public function Player(y:Number, x:Number, level:LevelWorld = null) 
 		{
 			// Load graphics
 			graphic = _image;

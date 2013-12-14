@@ -2,11 +2,12 @@ package ld28
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import ld28.level.LevelInfo;
 	
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	
-	import ld28.entities.GenericMap;
+	import ld28.level.GenericLevel;
 	
 	/**
 	 * ...
@@ -47,7 +48,14 @@ package ld28
 		// Tile for when colours overlap
 		public static var OVERLAPPING_TILE:BitmapData       = new BitmapData(16, 16, true, 0x00FFFFFF);
 		public static var OVERLAPPING_TILE_TOTAL:BitmapData = new BitmapData(16, 16, true, 0x00000000);
-			
+		
+		public static const LEVEL_INFO:Array    = [
+				new LevelInfo(1, 10, 39, 16, 0, 0),
+				new LevelInfo(1, 10, 39, 16, 3, 1)
+			];
+		public static const NUM_LEVELS:uint = LEVEL_INFO.length;
+		
+		
 		// Helper function to initialise the graphical assets
 		public static function init():void
 		{
@@ -64,6 +72,10 @@ package ld28
 				}
 			}
 		}
+		
+		////////////////////////////////////////
+		// Private interface and data members //
+		////////////////////////////////////////
 		
 		private static const OVERLAPPING_PATTERN:Array = [
 				[ 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 ],

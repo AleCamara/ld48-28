@@ -1,4 +1,4 @@
-package ld28.entities 
+package ld28.level 
 {
 	import flash.display.BitmapData;
 	import flash.geom.Rectangle;
@@ -11,19 +11,20 @@ package ld28.entities
 	import ld28.Assets;
 	import ld28.Settings;
 	import ld28.LevelWorld;
+	import ld28.level.LevelInfo;
 	import ld28.utils.Assert;
 	
 	/**
 	 * ...
 	 * @author Alejandro Cámara
 	 */
-	public class GenericMap extends Entity 
+	public class GenericLevel extends Entity 
 	{
 		///////////////////////////////////////
 		// Public interface and data members //
 		///////////////////////////////////////
 		
-		public function GenericMap(levelSource:Class, colour:uint, level:LevelWorld = null):void
+		public function GenericLevel(levelSource:Class, levelInfo:LevelInfo, colour:uint, level:LevelWorld = null):void
 		{
 			_level  = level;
 			_colour = colour;
