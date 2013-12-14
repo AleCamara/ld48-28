@@ -12,3 +12,5 @@ bin-release/
 
 # Timelapse files
 timelapse/
+external/
+obj/

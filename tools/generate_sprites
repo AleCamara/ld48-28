@@ -1,0 +1,98 @@
+#!/bin/bash
+
+###############
+## CHARACTER ##
+###############
+montage ../assets/raw/player_0.png -tile 1x -geometry 32x32+0+0 -background transparent ../assets/textures/player.png
+
+############
+## LEVELS ##
+############
+cp ../assets/raw/level_dummy.png  ../assets/levels/level_dummy.png
+
+### PREVIOUS SCRIPTS
+
+# CORE
+#montage ../assets/textures/{Core/core,Death/sExpl[1-7]}.png -tile 8x -geometry 128x128+0+0 -background transparent ../assets/textures/core.png 
+
+# LIFES
+#montage ../assets/textures/Life/vidas[0-6].png -tile x8 -geometry 256x32+0+0 -background transparent ../assets/textures/life.png
+
+# UPGRADES
+# down
+#montage ../assets/textures/Downa/downa[0-6]m.png -tile 8x -geometry 128x128+0+0 -background transparent ../assets/textures/down.png
+
+# up
+#montage ../assets/textures/Upa/upam[0-6].png -tile 8x -geometry 128x128+0+0 -background transparent ../assets/textures/up.png
+
+# strange
+#montage ../assets/textures/Strangena/strange1.png -tile 4x -geometry 128x128+0+0 -background transparent ../temp/strangen.png
+#montage ../assets/textures/Strangeia/strange[1-4].png -tile 4x -geometry 128x128+0+0 -background transparent ../temp/strangei.png
+#montage ../assets/textures/Strangeha/strangeh[1-3].png -tile 4x -geometry 128x128+0+0 -background transparent ../temp/strangeh.png
+#montage ../assets/textures/Strangeea/strangee[1-4].png -tile 4x -geometry 128x128+0+0 -background transparent ../temp/strangee.png
+#montage ../temp/strange{n,i,h,e}.png -tile 1x4 -geometry 512x128+0+0 -background transparent ../assets/textures/strange.png
+
+# charm
+#montage ../assets/textures/Charmna/charm.png -tile 4x -geometry 128x128+0+0 -background transparent ../temp/charmn.png
+#montage ../assets/textures/Charmia/charmi[1-4].png -tile 4x -geometry 128x128+0+0 -background transparent ../temp/charmi.png
+#montage ../assets/textures/Charmha/charmh[1-3].png -tile 4x -geometry 128x128+0+0 -background transparent ../temp/charmh.png
+#montage ../assets/textures/Charmea/charme[1-4].png -tile 4x -geometry 128x128+0+0 -background transparent ../temp/charme.png
+#montage ../temp/charm{n,i,h,e}.png -tile 1x4 -geometry 512x128+0+0 -background transparent ../assets/textures/charm.png
+
+# FOES
+
+# tauon
+#montage ../assets/textures/Foes/Tauon/Tauon[1-5].png -tile 8x -geometry 64x64+0+0 -background transparent ../temp/tauon1.png
+#montage ../assets/textures/Foes/Tauon/Texpl[1-4].png -tile 8x -geometry 64x64+0+0 -background transparent ../temp/tauon2.png
+#montage ../temp/tauon[1-2].png -tile x2 -geometry 512x64+0+0 -background transparent ../assets/textures/tauon.png
+
+# muon
+#montage ../assets/textures/Foes/Muon/Muon[1-5].png -tile 8x -geometry 256x256+0+0 -background transparent ../temp/muon1.png
+#montage ../assets/textures/Foes/Muon/MuonDeath[1-8].png -tile 8x -geometry 256x256+0+0 -background transparent ../temp/muon2.png
+#montage ../temp/muon[1-2].png -tile x2 -geometry 2048x256+0+0 -background transparent ../assets/textures/muon.png
+
+# PROJECTILES
+
+# photon
+#montage ../assets/textures/Projectiles/Photon/Left/lr2photon[0-4].png -tile 8x -geometry 16x16+0+0 -background transparent ../temp/photon11.png
+#montage ../assets/textures/Projectiles/Photon/Right/r2photon[0-4].png -tile 8x -geometry 16x16+0+0 -background transparent ../temp/photon12.png
+#montage ../temp/photon1[1-2].png -tile 1x2 -geometry 128x16+0+0 -background transparent ../temp/photon1.png
+#montage ../assets/textures/Explosions/Light/Blue/lblueexpl[1-4].png -tile 4x1 -geometry 32x32+0+0 -background transparent ../temp/photon2.png
+#montage ../assets/textures/Explosions/Light/Blue/lblueexpl[5-8].png -tile 4x1 -geometry 32x32+0+0 -background transparent ../temp/photon3.png
+#montage ../temp/photon[1-3].png -tile 1x4 -geometry 128x32+0+0 -background transparent ../assets/textures/photon.png
+
+# neutrino
+#montage ../assets/textures/Projectiles/Neutrino/Left/lrphoton[0-4].png -tile 8x -geometry 16x16+0+0 -background transparent ../temp/neutrino11.png
+#montage ../assets/textures/Projectiles/Neutrino/Right/rphoton[0-4].png -tile 8x -geometry 16x16+0+0 -background transparent ../temp/neutrino12.png
+#montage ../temp/neutrino1[1-2].png -tile 1x2 -geometry 128x16+0+0 -background transparent ../temp/neutrino1.png
+#montage ../assets/textures/Explosions/Light/Red/lredexpl[1-4].png -tile 4x1 -geometry 32x32+0+0 -background transparent ../temp/neutrino2.png
+#montage ../assets/textures/Explosions/Light/Red/lredexpl[5-8].png -tile 4x1 -geometry 32x32+0+0 -background transparent ../temp/neutrino3.png
+#montage ../temp/neutrino[1-3].png -tile 1x4 -geometry 128x32+0+0 -background transparent ../assets/textures/neutrino.png
+
+# medium photon
+#montage ../assets/textures/Projectiles/mPhoton/mPhoton[0-3].png -tile 4x -geometry 32x32+0+0 -background transparent ../temp/mPhoton11.png
+#montage ../assets/textures/Projectiles/mPhoton/mPhoton1[2-5].png -tile 4x -geometry 32x32+0+0 -background transparent ../temp/mPhoton12.png
+#montage ../temp/mPhoton1[1-2].png -tile 2x -geometry 128x32+0+0 -background transparent ../temp/mPhoton1.png
+#montage ../assets/textures/Projectiles/mPhoton/mPhoton{4,5,6,7,8,9,10,11}.png -tile 8x -geometry 32x32+0+0 -background transparent ../temp/mPhoton2.png
+#montage ../temp/mPhoton[1-2].png -tile 1x2 -geometry 256x32+0+0 -background transparent ../assets/textures/mphoton.png
+
+# medium neutrino
+#montage ../assets/textures/Projectiles/mNeutrino/mNeutrino[0-3].png -tile 4x -geometry 32x32+0+0 -background transparent ../temp/mNeutrino11.png
+#montage ../assets/textures/Projectiles/mNeutrino/mNeutrino1[2-5].png -tile 4x -geometry 32x32+0+0 -background transparent ../temp/mNeutrino12.png
+#montage ../temp/mNeutrino1[1-2].png -tile 2x -geometry 128x32+0+0 -background transparent ../temp/mNeutrino1.png
+#montage ../assets/textures/Projectiles/mNeutrino/mNeutrino{4,5,6,7,8,9,10,11}.png -tile 8x -geometry 32x32+0+0 -background transparent ../temp/mNeutrino2.png
+#montage ../temp/mNeutrino[1-2].png -tile 1x2 -geometry 256x32+0+0 -background transparent ../assets/textures/mneutrino.png
+
+# shoopdawhoop
+#montage ../assets/textures/Projectiles/ShoopDaWhoop/ShoopDaWhoop.png -tile 1x1 -geometry 1024x256+0+0 -background transparent ../assets/textures/shoopdawhoop.png
+
+# TILES
+
+#montage ../assets/textures/Tileset/tileset[1-3].png -tile x4 -geometry 512x128+0+0 -background transparent ../assets/textures/btile.png
+#montage ../assets/textures/Tileset/tileset[1-3]u.png -tile x4 -geometry 512x128+0+0 -background transparent ../assets/textures/ttile.png
+
+# BACKGROUNDS
+
+#montage ../assets/backgrounds/levelbg/Bgm[1-4].png -tile 4x -geometry 1024x1024+0+0 -background transparent ../assets/backgrounds/level.png
+
+#montage ../assets/backgrounds/ReadyGo/Readygo[1-4].png -tile x4 -geometry 512x128+0+0 -background transparent ../assets/backgrounds/readygo.png
