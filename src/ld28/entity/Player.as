@@ -188,7 +188,7 @@ package ld28.entity
 		private static const LOOK_RIGHT:String = "right";
 		
 		private static const MOVE_THRUST:Number          =  250.0;
-		private static const JUMP_THRUST:Number          =  550.0;
+		private static const JUMP_THRUST:Number          =  600.0;
 		private static const GRAVITY_PULL:Number         = 1750.0;
 		private static const TIMEFLYING_THRESHOLD:Number = 0.05;
 		private static const BLINK_TOTAL_TIME:Number     = 1.0;

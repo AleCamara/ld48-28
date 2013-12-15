@@ -5,10 +5,15 @@
 ###############
 montage ../assets/raw/player_[0-1].png -tile 2x -geometry 16x32+0+0 -background transparent ../assets/textures/player.png
 
+###############
+## TUTORIALS ##
+###############
+cp ../assets/raw/tutorial_[0-5].png  ../assets/levels/
+
 ############
 ## LEVELS ##
 ############
-cp ../assets/raw/level_dummy.png  ../assets/levels/level_dummy.png
+cp ../assets/raw/level_[0-9].png  ../assets/levels/
 
 #################
 ## FINISH LINE ##

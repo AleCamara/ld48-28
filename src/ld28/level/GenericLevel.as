@@ -149,16 +149,16 @@ package ld28.level
 					if (_tiles[i][j])
 					{
 						// Check for underneath tiles in other colours
-						var overlap:Boolean = doOverlapping ? _level.areColoursOverlapping(i, j) : false;
+						//var overlap:Boolean = doOverlapping ? _level.areColoursOverlapping(i, j) : false;
 						
 						// Paint tile colour
 						PaintTile(i, j, _colour);
 						
 						// Paint overlapping pattern if needed
-						if (overlap)
-						{
-							PaintOverlappingTile(i, j);
-						}
+						//if (overlap)
+						//{
+						//	PaintOverlappingTile(i, j);
+						//}
 					}
 				}
 			}

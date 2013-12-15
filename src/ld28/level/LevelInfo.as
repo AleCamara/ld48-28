@@ -12,14 +12,15 @@ package ld28.level
 		// Public interface and data members //
 		///////////////////////////////////////
 		
-		public function LevelInfo(startX:uint, startY:uint, endX:uint, endY:uint, startColour:uint, levelId:uint):void
+		public function LevelInfo(startX:uint, startY:uint, endX:uint, endY:uint, startColour:uint, levelTitle:String, levelText:String):void
 		{
 			_startX      = startX;
 			_startY      = startY;
 			_endX        = endX;
 			_endY        = endY;
 			_startColour = startColour;
-			_levelId     = levelId;
+			_levelTitle  = levelTitle;
+			_levelText   = levelText;
 		}
 		
 		// Getters for the data members
@@ -43,9 +44,13 @@ package ld28.level
 		{
 			return _startColour;
 		}
-		public function getLevelId():uint
+		public function getTitle():String
 		{
-			return _levelId;
+			return _levelTitle;
+		}
+		public function getText():String
+		{
+			return _levelText;
 		}
 		
 		////////////////////////////////////////
@@ -57,7 +62,8 @@ package ld28.level
 		private var _endX:uint;
 		private var _endY:uint;
 		private var _startColour:uint;
-		private var _levelId:uint;
+		private var _levelTitle:String;
+		private var _levelText:String;
 	}
 
 }

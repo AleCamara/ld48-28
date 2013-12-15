@@ -1,11 +1,12 @@
 package ld28
 {
-	import ld28.world.LevelWorld;
 	import net.flashpunk.Engine;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Text
 	
 	import ld28.Assets;
 	import ld28.world.TitleWorld;
+	import ld28.world.LevelWorld;
 	
 	/**
 	 * ...
@@ -22,9 +23,14 @@ package ld28
 		
 		override public function init():void
 		{
+			// Initialise assets
 			Assets.init();
 			
-			FP.console.enable();
+			// Initialise text options
+			Text.wordWrap = true;			
+			
+			// Enable FlashPunk debug console
+			//FP.console.enable();
 			
 			//FP.world = new TitleWorld();
 			FP.world = new LevelWorld();

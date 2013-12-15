@@ -40,7 +40,7 @@ package ld28
 		public static const FINISH_LINE_HB_WIDTH:uint  = 10;
 		public static const FINISH_LINE_HB_HEIGHT:uint = 4;
 		public static const FINISH_LINE_HB_XOFFSET:int = -7;
-		public static const FINISH_LINE_HB_YOFFSET:int = -50;
+		public static const FINISH_LINE_HB_YOFFSET:int = -30;
 		public static const FINISH_LINE_HB_RECT:Rectangle = new Rectangle(
 			FINISH_LINE_HB_XOFFSET, FINISH_LINE_HB_YOFFSET,
 			FINISH_LINE_HB_WIDTH, FINISH_LINE_HB_HEIGHT);
@@ -66,6 +66,25 @@ package ld28
 		public static const TITLE_BUTTON_Y:int            = 447;
 		public static const TITLE_BUTTON_FRAMES:Array     = [0, 1, 2, 3];
 		public static const TITLE_BUTTON_FRAMERATE:Number = 8;
+		
+		// Text information
+		public static const TEXT_TITLE_X:uint = 50;
+		public static const TEXT_TITLE_Y:uint = 120;
+		public static const TEXT_TITLE_SIZE:uint = 72;
+		public static const TEXT_TITLE_WIDTH:uint = 750;
+		public static const TEXT_TITLE_HEIGHT:uint = 100;
+		public static const TEXT_TITLE_PADDING:uint = 5;
+		public static const TEXT_TITLE_BG_COLOUR:uint = 0xFF404040;
+		public static const TEXT_TITLE_LAYER:int = -3;
+		
+		public static const TEXT_DESC_X:uint = 10;
+		public static const TEXT_DESC_Y:uint = 10;
+		public static const TEXT_DESC_SIZE:uint = 12;
+		public static const TEXT_DESC_WIDTH:uint = 200;
+		public static const TEXT_DESC_HEIGHT:uint = 400;
+		public static const TEXT_DESC_PADDING:uint = 5;
+		public static const TEXT_DESC_BG_COLOUR:uint = 0x00404040;
+		public static const TEXT_DESC_LAYER:int = -1;
 	}
 
 }

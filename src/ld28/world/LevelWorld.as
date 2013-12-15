@@ -2,9 +2,11 @@ package ld28.world
 {
 	import ld28.entity.FinishLine;
 	import ld28.entity.Foreground;
+	import ld28.entity.TextEntity;
 	import ld28.level.LevelInfo;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Backdrop;
+	import net.flashpunk.graphics.Text;
 	import net.flashpunk.World;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
@@ -38,14 +40,29 @@ package ld28.world
 			_fadeForeground = new Foreground(Settings.SCREEN_PADDING, Settings.SCREEN_PADDING, Assets.FADE_COLOUR_RESET);
 			_fadeForeground.width = Settings.SCREEN_WIDTH;
 			_fadeForeground.height = Settings.SCREEN_HEIGHT;
-			_fadeForeground.layer = -1;
+			_fadeForeground.layer = -2;
 			add(_fadeForeground);
+			
+			// Create title text entity
+			_titleText = new TextEntity("", Settings.TEXT_TITLE_SIZE, Assets.PAINT_COLOUR[_curColour],
+				Settings.TEXT_TITLE_X, Settings.TEXT_TITLE_Y, Settings.TEXT_TITLE_WIDTH, Settings.TEXT_TITLE_HEIGHT,
+				Settings.TEXT_TITLE_PADDING, Settings.TEXT_TITLE_BG_COLOUR, Settings.TEXT_TITLE_LAYER);
+			add(_titleText);
+			
+			// Create description text entity
+			_descriptionText = new TextEntity("", Settings.TEXT_DESC_SIZE, Assets.PAINT_COLOUR[_curColour],
+				Settings.TEXT_DESC_X, Settings.TEXT_DESC_Y, Settings.TEXT_DESC_WIDTH, Settings.TEXT_DESC_HEIGHT,
+				Settings.TEXT_DESC_PADDING, Settings.TEXT_DESC_BG_COLOUR, Settings.TEXT_DESC_LAYER);
+			add(_descriptionText);
+			
+			// Select the starting level (debug mostly)
+			_curLevel = Assets.STARTING_LEVEL;
 		}
 		
 		// Callback for when the world starts
 		override public function begin():void
 		{
-			loadLevel(Assets.LEVEL_DATA[_curLevel], Assets.LEVEL_INFO[_curLevel]);
+			changeLevel();
 		}
 		
 		// Callback for when the world is going to be changed
@@ -64,7 +81,7 @@ package ld28.world
 				_player.resetLook();
 				
 				// Reposition finish line
-				_finishLine.x = (Assets.LEVEL_INFO[_curLevel].getEndX() - 1) * Settings.TILE_WIDTH + 5;
+				_finishLine.x = (Assets.LEVEL_INFO[_curLevel].getEndX() - 0) * Settings.TILE_WIDTH + 5;
 				_finishLine.y = (Assets.LEVEL_INFO[_curLevel].getEndY() - 2) * Settings.TILE_HEIGHT - 8;
 				
 				// Show the initial colour
@@ -80,43 +97,57 @@ package ld28.world
 		
 		override public function update():void
 		{
-			// Normal update when not fading in or out
-			if (!_isFading)
+			// Wait for level title display
+			if (_titleTimer <= 0.0)
 			{
-				// Update reset time
-				_resetTime += FP.elapsed;
-				
-				// Change colour
-				if (Input.check(KEY_COLOUR_1))
+				// Normal update when not fading in or out
+				if (!_isFading)
 				{
-					changeColour(0);
+					// Update reset time
+					_resetTime += FP.elapsed;
+					
+					// Change colour
+					if (Input.check(KEY_COLOUR_1))
+					{
+						changeColour(0);
+					}
+					if (Input.check(KEY_COLOUR_2))
+					{
+						changeColour(1);
+					}
+					if (Input.check(KEY_COLOUR_3))
+					{
+						changeColour(2);
+					}
+					if (Input.check(KEY_COLOUR_4))
+					{
+						changeColour(3);
+					}
+					
+					// Reset
+					if (Input.check(KEY_RESET))
+					{
+						reset();
+					}
+					
+					// Update rest of entities
+					super.update();
 				}
-				if (Input.check(KEY_COLOUR_2))
+				// Otherwise just update the fade foreground
+				else
 				{
-					changeColour(1);
+					_fadeForeground.update();
 				}
-				if (Input.check(KEY_COLOUR_3))
-				{
-					changeColour(2);
-				}
-				if (Input.check(KEY_COLOUR_4))
-				{
-					changeColour(3);
-				}
-				
-				// Reset
-				if (Input.check(KEY_RESET))
-				{
-					reset();
-				}
-				
-				// Update rest of entities
-				super.update();
 			}
-			// Otherwise just update the fade foreground
 			else
 			{
-				_fadeForeground.update();
+				_titleTimer -= FP.elapsed;
+				
+				if (_titleTimer < 0.0)
+				{
+					_titleTimer = 0.0;
+					endWaitTitleShow();
+				}
 			}
 		}
 		
@@ -181,7 +212,7 @@ package ld28.world
 			}
 			else
 			{
-				loadLevel(Assets.LEVEL_DATA[_curLevel], Assets.LEVEL_INFO[_curLevel]);
+				changeLevel();
 			}
 		}
 		
@@ -199,6 +230,8 @@ package ld28.world
 		private static const FADE_IN_TOTAL_TIME:Number  = 0.5;
 		private static const FADE_OUT_TOTAL_TIME:Number = 1.0;
 		
+		private static const TIME_TITLE_DISPLAY:Number = 2.0;
+		
 		private var _curColour:uint = 0;
 		private var _curLevel:uint  = 0;
 		
@@ -206,6 +239,10 @@ package ld28.world
 		private var _colourMaps:Array          = null;
 		private var _finishLine:FinishLine     = null;
 		private var _fadeForeground:Foreground = null;
+		
+		private var _titleText:TextEntity       = null;
+		private var _descriptionText:TextEntity = null;
+		private var _titleTimer:Number          = 0;
 		
 		private var _resetTime:Number = 0.0;
 		
@@ -219,11 +256,34 @@ package ld28.world
 				_colourMaps[_curColour].visible = false;
 				_curColour = colour;
 				_colourMaps[_curColour].visible = true;
+				_descriptionText.setColour(Assets.PAINT_COLOUR[colour]);
 			}
 			else
 			{
 				trace("Unable to change color because player would get stuck.");
 			}
+		}
+		
+		// Prepare to load the next level
+		// Displays next level title
+		private function changeLevel():void
+		{
+			_titleText.setText(Assets.LEVEL_INFO[_curLevel].getTitle());
+			_titleText.setColour(Assets.PAINT_COLOUR[Assets.LEVEL_INFO[_curLevel].getStartColour()]);
+			_titleText.visible = true;
+			
+			_descriptionText.setText(Assets.LEVEL_INFO[_curLevel].getText());
+			_descriptionText.setColour(Assets.PAINT_COLOUR[Assets.LEVEL_INFO[_curLevel].getStartColour()]);
+			_descriptionText.visible = true;
+			
+			_titleTimer = TIME_TITLE_DISPLAY;
+		}
+		
+		// The level loading can proceed
+		private function endWaitTitleShow():void
+		{
+			_titleText.visible = false;
+			loadLevel(Assets.LEVEL_DATA[_curLevel], Assets.LEVEL_INFO[_curLevel]);
 		}
 		
 		// Loads a level from its embeded data and its level information
