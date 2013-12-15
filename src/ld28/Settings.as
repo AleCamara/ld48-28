@@ -29,17 +29,17 @@ package ld28
 		public static const TILE_HEIGHT:uint = 16;
 		
 		// Hit boxes
-		public static const PLAYER_HB_WIDTH:uint  = 18;
+		public static const PLAYER_HB_WIDTH:uint  = 16;
 		public static const PLAYER_HB_HEIGHT:uint = 30;
-		public static const PLAYER_HB_XOFFSET:int = -2;
-		public static const PLAYER_HB_YOFFSET:int =  4;
+		public static const PLAYER_HB_XOFFSET:int = 5;
+		public static const PLAYER_HB_YOFFSET:int = 4;
 		public static const PLAYER_HB_RECT:Rectangle = new Rectangle(
 			PLAYER_HB_XOFFSET, PLAYER_HB_YOFFSET,
 			PLAYER_HB_WIDTH, PLAYER_HB_HEIGHT);
 			
-		public static const FINISH_LINE_HB_WIDTH:uint  =  10;
-		public static const FINISH_LINE_HB_HEIGHT:uint =   4;
-		public static const FINISH_LINE_HB_XOFFSET:int =  -7;
+		public static const FINISH_LINE_HB_WIDTH:uint  = 10;
+		public static const FINISH_LINE_HB_HEIGHT:uint = 4;
+		public static const FINISH_LINE_HB_XOFFSET:int = -7;
 		public static const FINISH_LINE_HB_YOFFSET:int = -50;
 		public static const FINISH_LINE_HB_RECT:Rectangle = new Rectangle(
 			FINISH_LINE_HB_XOFFSET, FINISH_LINE_HB_YOFFSET,
@@ -48,8 +48,18 @@ package ld28
 		// Colour information
 		public static const NUM_COLOURS:uint = Assets.PAINT_COLOUR.length;
 		
-		// Title screen information
+		// Player information
+		public static const PLAYER_WIDTH:uint     = 16;
+		public static const PLAYER_HEIGHT:uint    = 32;
+		public static const PLAYER_FRAMERATE:uint = 1;
 		
+		// Finish line information
+		public static const FINISH_LINE_WIDTH:uint     = 32;
+		public static const FINISH_LINE_HEIGHT:uint    = 64;
+		public static const FINISH_LINE_FRAMES:Array   = [0, 1, 2, 3];
+		public static const FINISH_LINE_FRAMERATE:uint = 8;
+		
+		// Title screen information
 		public static const TITLE_BUTTON_WIDTH:uint       = 656;
 		public static const TITLE_BUTTON_HEIGHT:uint      = 80;
 		public static const TITLE_BUTTON_X:int            = 278;

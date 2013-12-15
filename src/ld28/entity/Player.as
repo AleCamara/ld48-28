@@ -3,8 +3,7 @@ package ld28.entity
 	import flash.geom.Rectangle;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
-	import net.flashpunk.graphics.Canvas;
-	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	
@@ -26,8 +25,12 @@ package ld28.entity
 		
 		public function Player(y:Number, x:Number, level:LevelWorld = null) 
 		{
-			// Load graphics
-			addGraphic(_image);
+			// Load sprite
+			_sprite = new Spritemap(Assets.PLAYER, Settings.PLAYER_WIDTH, Settings.PLAYER_HEIGHT);
+			_sprite.add(LOOK_RIGHT, [0], Settings.PLAYER_FRAMERATE);
+			_sprite.add(LOOK_LEFT,  [1], Settings.PLAYER_FRAMERATE);
+			resetLook();
+			addGraphic(_sprite);
 			
 			// Define controls
 			Input.define(KEY_LEFT,  Key.LEFT,  Key.A);
@@ -46,7 +49,7 @@ package ld28.entity
 			_level = level;
 			
 			// Canvas to debug collision hit boxes
-			addGraphic(DebugTools.createDebugCanvas(this));
+			//addGraphic(DebugTools.createDebugCanvas(this));
 		}
 		
 		override public function update():void
@@ -105,6 +108,19 @@ package ld28.entity
 			}
 			_isFlying = (_timeFlying > 0.0);
 			
+			// Change direction where he's looking
+			if (_speedX > 0.0 && !_isLookingRight)
+			{
+				_sprite.play(LOOK_RIGHT);
+				_isLookingRight = true;
+			}
+			else if (_speedX < 0.0 && _isLookingRight)
+			{
+				_sprite.play(LOOK_LEFT);
+				_isLookingRight = false;
+			}
+			
+			
 			// Reset speed
 			_speedX = 0.0;
 			_speedY = !_isFlying ? 0.0 : _speedY + (GRAVITY_PULL * timestep);
@@ -145,6 +161,13 @@ package ld28.entity
 			}
 		}
 		
+		// Sets the looking direction to default
+		public function resetLook():void
+		{
+			_isLookingRight = true;
+			_sprite.play(LOOK_RIGHT);
+		}
+		
 		// Handles the case when the player falls out of the screen
 		public function recover():void
 		{
@@ -161,6 +184,9 @@ package ld28.entity
 		private static const KEY_UP:String    = "up";
 		private static const KEY_DOWN:String  = "down";
 		
+		private static const LOOK_LEFT:String  = "left";
+		private static const LOOK_RIGHT:String = "right";
+		
 		private static const MOVE_THRUST:Number          =  250.0;
 		private static const JUMP_THRUST:Number          =  550.0;
 		private static const GRAVITY_PULL:Number         = 1750.0;
@@ -168,8 +194,7 @@ package ld28.entity
 		private static const BLINK_TOTAL_TIME:Number     = 1.0;
 		private static const NUM_BLINKS:uint             = 10;
 		
-		private const _image:Image = new Image(Assets.PLAYER);
-		
+		private var _sprite:Spritemap = null;
 		private var _level:LevelWorld = null;
 		
 		private var _speedX:Number = 0.0;
@@ -177,6 +202,8 @@ package ld28.entity
 		
 		private var _timeFlying:Number = 0.0;
 		private var _isFlying:Boolean  = false;
+		
+		private var _isLookingRight:Boolean = false;
 		
 		private var _blinkTimer:Number  = 0.0;
 		private var _changeBlink:Number = 0.0;

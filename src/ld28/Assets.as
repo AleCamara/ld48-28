@@ -52,15 +52,10 @@ package ld28
 													  0xFF284A7E,
 													  0xFFBF8B30];
 		// Background colours
-		/*public static const BG_COLOUR:Array = [0xFFFDF5E6,
-											   0xFFF5FFFA,
-											   0xFFE6E6FA,
-											   0xFFFFE4E1];
-		*/
-		public static const BG_COLOUR:Array = [0xFF9F869D,
-											   0xFF9F869D,
-											   0xFF9F869D,
-											   0xFF9F869D];
+		public static const BG_COLOUR:Array = [0xFF404040,
+											   0xFF404040,
+											   0xFF404040,
+											   0xFF404040];
 
 		public static const FADE_COLOUR_RESET:uint = 0xFF404040;
 		

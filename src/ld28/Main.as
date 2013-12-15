@@ -1,5 +1,6 @@
 package ld28
 {
+	import ld28.world.LevelWorld;
 	import net.flashpunk.Engine;
 	import net.flashpunk.FP;
 	
@@ -25,7 +26,8 @@ package ld28
 			
 			FP.console.enable();
 			
-			FP.world = new TitleWorld();
+			//FP.world = new TitleWorld();
+			FP.world = new LevelWorld();
 		}
 	}
 	

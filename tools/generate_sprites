@@ -3,7 +3,7 @@
 ###############
 ## CHARACTER ##
 ###############
-montage ../assets/raw/player_0.png -tile 1x -geometry 32x32+0+0 -background transparent ../assets/textures/player.png
+montage ../assets/raw/player_[0-1].png -tile 2x -geometry 16x32+0+0 -background transparent ../assets/textures/player.png
 
 ############
 ## LEVELS ##
@@ -13,7 +13,7 @@ cp ../assets/raw/level_dummy.png  ../assets/levels/level_dummy.png
 #################
 ## FINISH LINE ##
 #################
-montage ../assets/raw/finish_line.png -tile 1x -geometry 32x64+0+0 -background transparent ../assets/textures/finish_line.png
+montage ../assets/raw/finish_line_[0-3].png -tile 4x -geometry 32x64+0+0 -background transparent ../assets/textures/finish_line.png
 
 ##################
 ## TITLE SCREEN ##

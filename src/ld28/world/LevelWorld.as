@@ -61,6 +61,7 @@ package ld28.world
 				// Reposition player
 				_player.x = Assets.LEVEL_INFO[_curLevel].getStartX() * Settings.TILE_WIDTH;
 				_player.y = Assets.LEVEL_INFO[_curLevel].getStartY() * Settings.TILE_HEIGHT;
+				_player.resetLook();
 				
 				// Reposition finish line
 				_finishLine.x = (Assets.LEVEL_INFO[_curLevel].getEndX() - 1) * Settings.TILE_WIDTH + 5;
@@ -69,6 +70,10 @@ package ld28.world
 				// Show the initial colour
 				changeColour(Assets.LEVEL_INFO[_curLevel].getStartColour());
 				
+				// Update finish line colour
+				_finishLine.setTintColour(_curColour);
+				
+				// Time to prevent multiple resets by accident
 				_resetTime = 0.0;
 			}
 		}
