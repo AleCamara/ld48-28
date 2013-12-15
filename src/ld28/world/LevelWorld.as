@@ -1,9 +1,5 @@
 package ld28.world 
 {
-	import ld28.entity.FinishLine;
-	import ld28.entity.Foreground;
-	import ld28.entity.TextEntity;
-	import ld28.level.LevelInfo;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Backdrop;
 	import net.flashpunk.graphics.Text;
@@ -14,7 +10,11 @@ package ld28.world
 	import ld28.Assets;
 	import ld28.Settings;
 	import ld28.level.GenericLevel;
+	import ld28.level.LevelInfo;
 	import ld28.entity.Player;
+	import ld28.entity.FinishLine;
+	import ld28.entity.Foreground;
+	import ld28.entity.TextEntity;
 	
 	/**
 	 * ...
@@ -174,8 +174,15 @@ package ld28.world
 		// Handles the case in which the player fall out of the screen (die?)
 		public function playerFell():void
 		{
-			reset();
-			_player.recover();
+			if (!_isFinalLevel)
+			{
+				reset();
+				_player.recover();
+			}
+			else
+			{
+				playerWon();
+			}
 		}
 		
 		// Handles the case in which the player has reached the finish line
@@ -208,10 +215,14 @@ package ld28.world
 			// Check if the game is finished, and if not load the next level
 			if (_curLevel >= Assets.NUM_LEVELS)
 			{
-				FP.world = new WinWorld();
+				FP.world = new FinalWorld();
 			}
 			else
 			{
+				if (_curLevel == Assets.NUM_LEVELS - 1)
+				{
+					_isFinalLevel = true;
+				}
 				changeLevel();
 			}
 		}
@@ -247,6 +258,8 @@ package ld28.world
 		private var _resetTime:Number = 0.0;
 		
 		private var _isFading:Boolean = false;
+		
+		private var _isFinalLevel:Boolean = false;
 		
 		// Changes the colour of the map displayed (and interacted with)
 		private function changeColour(colour:uint):void

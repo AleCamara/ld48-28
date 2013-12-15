@@ -41,16 +41,22 @@ package ld28
 		[Embed(source = "../../assets/levels/tutorial_3.png")] public static const TUTORIAL_3:Class;
 		[Embed(source = "../../assets/levels/tutorial_4.png")] public static const TUTORIAL_4:Class;
 		[Embed(source = "../../assets/levels/tutorial_5.png")] public static const TUTORIAL_5:Class;
-		[Embed(source = "../../assets/levels/level_0.png")] public static const LEVEL_0:Class;
-		[Embed(source = "../../assets/levels/level_1.png")] public static const LEVEL_1:Class;
-		[Embed(source = "../../assets/levels/level_2.png")] public static const LEVEL_2:Class;
-		[Embed(source = "../../assets/levels/level_3.png")] public static const LEVEL_3:Class;
-		[Embed(source = "../../assets/levels/level_4.png")] public static const LEVEL_4:Class;
-		[Embed(source = "../../assets/levels/level_5.png")] public static const LEVEL_5:Class;
-		[Embed(source = "../../assets/levels/level_6.png")] public static const LEVEL_6:Class;
-		[Embed(source = "../../assets/levels/level_7.png")] public static const LEVEL_7:Class;
-		[Embed(source = "../../assets/levels/level_8.png")] public static const LEVEL_8:Class;
-		[Embed(source = "../../assets/levels/level_9.png")] public static const LEVEL_9:Class;
+		[Embed(source = "../../assets/levels/level_0.png")]  public static const LEVEL_0:Class;
+		[Embed(source = "../../assets/levels/level_1.png")]  public static const LEVEL_1:Class;
+		[Embed(source = "../../assets/levels/level_2.png")]  public static const LEVEL_2:Class;
+		[Embed(source = "../../assets/levels/level_3.png")]  public static const LEVEL_3:Class;
+		[Embed(source = "../../assets/levels/level_4.png")]  public static const LEVEL_4:Class;
+		[Embed(source = "../../assets/levels/level_5.png")]  public static const LEVEL_5:Class;
+		[Embed(source = "../../assets/levels/level_6.png")]  public static const LEVEL_6:Class;
+		[Embed(source = "../../assets/levels/level_7.png")]  public static const LEVEL_7:Class;
+		[Embed(source = "../../assets/levels/level_8.png")]  public static const LEVEL_8:Class;
+		[Embed(source = "../../assets/levels/level_9.png")]  public static const LEVEL_9:Class;
+		[Embed(source = "../../assets/levels/level_10.png")] public static const LEVEL_10:Class;
+		[Embed(source = "../../assets/levels/level_11.png")] public static const LEVEL_11:Class;
+		[Embed(source = "../../assets/levels/level_12.png")] public static const LEVEL_12:Class;
+		[Embed(source = "../../assets/levels/level_13.png")] public static const LEVEL_13:Class;
+		[Embed(source = "../../assets/levels/level_14.png")] public static const LEVEL_14:Class;
+		
 		// Reference colours
 		public static const REF_COLOUR:Array = [0x00800000,
 												0x00008000,
@@ -93,7 +99,12 @@ package ld28
 				LEVEL_6,
 				LEVEL_7,
 				LEVEL_8,
-				LEVEL_9
+				LEVEL_9,
+				LEVEL_10,
+				LEVEL_11,
+				LEVEL_12,
+				LEVEL_13,
+				LEVEL_14
 			];
 		public static const LEVEL_INFO:Array = [
 				// Tutorial levels
@@ -123,11 +134,30 @@ package ld28
 				new LevelInfo(2, 28, 49,  7, 0, "09:\nNeil Gagarin",
 					"I won't be able to get to the moon nor other planets!"),
 				new LevelInfo(54, 3, 20, 23, 0, "10:\nKokoro",
-					"DAMN IT! I WON'T EVEN BE ABLE TO FALL IN LOVE!")
+					"DAMN IT! I WON'T EVEN BE ABLE TO FALL IN LOVE!"),
+				new LevelInfo(1, 2,  10, 13, 0, "11:\nImpossible",
+					"It's not that these things are easy for anyone, but for me they are IMPOSSIBLE!"),
+				new LevelInfo(4, 12, 58, 25, 2, "12:\nHatred",
+					"I hate my eyes. I hate my fate! But especially..."),
+				new LevelInfo(55, 8, 13, 29, 1, "13:\nHATRED",
+					"... I hate the kid I was! Why would he learn this useful scowl-trick that only remind me of what I'm missing!"),
+				new LevelInfo(1, 27, 43, 30, 3, "14:\nSloth",
+				//new LevelInfo(1, 10, 56, 28, 0, "Tutorial:\nMovement",
+					"Bah. It's no use getting mad for this. I'll get back home and keep doing what I'm best at:"),
+				new LevelInfo(54, 0, 29, 13, 0, "15:\nNothing",
+					"Nothing.")
 			];
 		public static const NUM_LEVELS:uint     = LEVEL_INFO.length;
-		public static const STARTING_LEVEL:uint = 14;
+		public static const STARTING_LEVEL:uint = 0;
 		
+		// Final sentences
+		public static const FINAL_SENTENCES:Array = [
+				"Well, isn't that funny?",
+				"While he was complaining all the time about his \"inability\" to make his dream come true...",
+				"... he didn't realised that he was making it real.",
+				"Sometimes we are all that prevents us from making our dreams come true."
+			];
+		public static const NUM_FINAL_SENTENCES:uint = FINAL_SENTENCES.length;
 		
 		// Helper function to initialise the graphical assets
 		public static function init():void

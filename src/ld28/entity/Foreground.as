@@ -63,8 +63,6 @@ package ld28.entity
 		// At the end calls _level.endFadeIn()
 		public function fadeIn(time:Number, callback:Function):void
 		{
-			Assert(null != callback,  "Callback function for fade in is null.");
-			
 			_callback = callback;
 			
 			if (time > 0.0)
@@ -83,8 +81,6 @@ package ld28.entity
 		// At the end calls _level.endFadeOut()
 		public function fadeOut(time:Number, callback:Function):void
 		{
-			Assert(null != callback,  "Callback function for fade in is null.");
-			
 			_callback = callback;
 			
 			if (time > 0.0)

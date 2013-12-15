@@ -43,7 +43,7 @@ package ld28.entity
 			type = COLLIDER_TYPE;
 			
 			// Canvas for debugging collision hitboxes
-			addGraphic(DebugTools.createDebugCanvas(this));
+			//addGraphic(DebugTools.createDebugCanvas(this));
 		}
 		
 		// Makes sure the tint is correct

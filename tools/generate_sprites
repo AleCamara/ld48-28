@@ -13,7 +13,7 @@ cp ../assets/raw/tutorial_[0-5].png  ../assets/levels/
 ############
 ## LEVELS ##
 ############
-cp ../assets/raw/level_[0-9].png  ../assets/levels/
+cp ../assets/raw/level_{0..14}.png  ../assets/levels/
 
 #################
 ## FINISH LINE ##

@@ -32,8 +32,8 @@ package ld28
 			// Enable FlashPunk debug console
 			//FP.console.enable();
 			
-			//FP.world = new TitleWorld();
-			FP.world = new LevelWorld();
+			FP.world = new TitleWorld();
+			//FP.world = new LevelWorld();
 		}
 	}
 	

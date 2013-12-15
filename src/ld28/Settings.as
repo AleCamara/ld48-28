@@ -17,7 +17,7 @@ package ld28
 		public static const SCREEN_MAX_Y:Number = SCREEN_HEIGHT + 2 * SCREEN_PADDING;
 		
 		public static const SCREEN_RECTANGLE:Rectangle            = new Rectangle(SCREEN_PADDING, SCREEN_PADDING, SCREEN_WIDTH, SCREEN_HEIGHT);
-		public static const SCREEN_RECTANGLE_NO_PADDING:Rectangle = new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+		public static const SCREEN_RECTANGLE_NO_PADDING:Rectangle = new Rectangle(0, 0, SCREEN_WIDTH + 2*SCREEN_PADDING, SCREEN_HEIGHT + 2*SCREEN_PADDING);
 		
 		// Board dimensions
 		public static const BOARD_WIDTH:uint  = 60;
@@ -76,6 +76,12 @@ package ld28
 		public static const TEXT_TITLE_PADDING:uint = 5;
 		public static const TEXT_TITLE_BG_COLOUR:uint = 0xFF404040;
 		public static const TEXT_TITLE_LAYER:int = -3;
+		
+		public static const TEXT_TITLE_FINAL_X:uint = 100;
+		public static const TEXT_TITLE_FINAL_Y:uint = 60;
+		public static const TEXT_TITLE_FINAL_SIZE:uint = 64;
+		public static const TEXT_TITLE_BG_FINAL_COLOUR:uint = 0x00404040;
+		public static const TEXT_TITLE_FINAL_LAYER:int = -1;
 		
 		public static const TEXT_DESC_X:uint = 10;
 		public static const TEXT_DESC_Y:uint = 10;
