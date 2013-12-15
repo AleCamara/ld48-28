@@ -10,7 +10,7 @@ package ld28.level
 	
 	import ld28.Assets;
 	import ld28.Settings;
-	import ld28.LevelWorld;
+	import ld28.world.LevelWorld;
 	import ld28.level.LevelInfo;
 	import ld28.utils.Assert;
 	

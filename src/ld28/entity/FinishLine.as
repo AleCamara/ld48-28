@@ -6,8 +6,8 @@ package ld28.entity
 	import net.flashpunk.graphics.Image;
 	
 	import ld28.Assets;
-	import ld28.LevelWorld;
 	import ld28.Settings;
+	import ld28.world.LevelWorld;
 	import ld28.utils.DebugTools;
 	
 	/**

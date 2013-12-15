@@ -47,6 +47,15 @@ package ld28
 		
 		// Colour information
 		public static const NUM_COLOURS:uint = Assets.PAINT_COLOUR.length;
+		
+		// Title screen information
+		
+		public static const TITLE_BUTTON_WIDTH:uint       = 656;
+		public static const TITLE_BUTTON_HEIGHT:uint      = 80;
+		public static const TITLE_BUTTON_X:int            = 278;
+		public static const TITLE_BUTTON_Y:int            = 447;
+		public static const TITLE_BUTTON_FRAMES:Array     = [0, 1, 2, 3];
+		public static const TITLE_BUTTON_FRAMERATE:Number = 8;
 	}
 
 }

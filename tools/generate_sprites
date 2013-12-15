@@ -15,6 +15,21 @@ cp ../assets/raw/level_dummy.png  ../assets/levels/level_dummy.png
 #################
 montage ../assets/raw/finish_line.png -tile 1x -geometry 32x64+0+0 -background transparent ../assets/textures/finish_line.png
 
+##################
+## TITLE SCREEN ##
+##################
+
+# title screen
+cp ../assets/raw/title_screen.png ../assets/textures/title_screen.png
+
+# press enter button
+montage ../assets/raw/press_enter_[0-3].png -tile 1x -geometry 656x80+0+0 -background transparent ../assets/textures/press_enter.png
+
+################
+## WIN SCREEN ##
+################
+cp ../assets/raw/win_screen.png ../assets/textures/win_screen.png
+
 ### PREVIOUS SCRIPTS
 
 # CORE

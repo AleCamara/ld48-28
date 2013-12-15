@@ -1,13 +1,16 @@
-package ld28 
+package ld28.world 
 {
 	import ld28.entity.FinishLine;
+	import ld28.entity.Foreground;
 	import ld28.level.LevelInfo;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Backdrop;
 	import net.flashpunk.World;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	
 	import ld28.Assets;
+	import ld28.Settings;
 	import ld28.level.GenericLevel;
 	import ld28.entity.Player;
 	
@@ -26,22 +29,31 @@ package ld28
 			Input.define(KEY_COLOUR_4, Key.DIGIT_4, Key.L);
 			Input.define(KEY_RESET,    Key.R);
 						
-			// Create player and finish line
+			// Create player and finish line entities
 			// Notice that position is not important because they get repositioned later on
 			_player = new Player(0, 0, this);
 			_finishLine = new FinishLine(0, 0, this);
+			
+			// Create foreground fader
+			_fadeForeground = new Foreground(Settings.SCREEN_PADDING, Settings.SCREEN_PADDING, Assets.FADE_COLOUR_RESET);
+			_fadeForeground.width = Settings.SCREEN_WIDTH;
+			_fadeForeground.height = Settings.SCREEN_HEIGHT;
+			_fadeForeground.layer = -1;
+			add(_fadeForeground);
 		}
 		
+		// Callback for when the world starts
 		override public function begin():void
 		{
-			startFadeIn();
+			loadLevel(Assets.LEVEL_DATA[_curLevel], Assets.LEVEL_INFO[_curLevel]);
 		}
 		
+		// Callback for when the world is going to be changed
 		override public function end():void
 		{
-			startFadeOut();
 		}
 		
+		// Resets the current level to its initial state
 		public function reset(forceReset:Boolean = false):void
 		{
 			if (forceReset || _resetTime > RESET_TIME_THRESHOLD)
@@ -63,61 +75,44 @@ package ld28
 		
 		override public function update():void
 		{
-			// Handle fade in and out
-			if (_fadeInTimer > 0.0)
+			// Normal update when not fading in or out
+			if (!_isFading)
 			{
-				_isFadingIn   = true;
-				_fadeInTimer -= FP.elapsed;
-				return;
+				// Update reset time
+				_resetTime += FP.elapsed;
+				
+				// Change colour
+				if (Input.check(KEY_COLOUR_1))
+				{
+					changeColour(0);
+				}
+				if (Input.check(KEY_COLOUR_2))
+				{
+					changeColour(1);
+				}
+				if (Input.check(KEY_COLOUR_3))
+				{
+					changeColour(2);
+				}
+				if (Input.check(KEY_COLOUR_4))
+				{
+					changeColour(3);
+				}
+				
+				// Reset
+				if (Input.check(KEY_RESET))
+				{
+					reset();
+				}
+				
+				// Update rest of entities
+				super.update();
 			}
-			if (_fadeOutTimer > 0.0)
+			// Otherwise just update the fade foreground
+			else
 			{
-				_isFadingOut   = true;
-				_fadeOutTimer -= FP.elapsed;
-				return;
+				_fadeForeground.update();
 			}
-			if (_isFadingIn)
-			{
-				endFadeIn();
-				_isFadingIn = false;
-				return;
-			}
-			if (_isFadingOut)
-			{
-				endFadeOut();
-				_isFadingOut = false;
-				return;
-			}
-			
-			// Update reset time
-			_resetTime += FP.elapsed;
-			
-			// Change colour
-			if (Input.check(KEY_COLOUR_1))
-			{
-				changeColour(0);
-			}
-			if (Input.check(KEY_COLOUR_2))
-			{
-				changeColour(1);
-			}
-			if (Input.check(KEY_COLOUR_3))
-			{
-				changeColour(2);
-			}
-			if (Input.check(KEY_COLOUR_4))
-			{
-				changeColour(3);
-			}
-			
-			// Reset
-			if (Input.check(KEY_RESET))
-			{
-				reset();
-			}
-			
-			// Update rest of entities
-			super.update();
 		}
 		
 		// Checks if for a given tile all colours overlap
@@ -147,10 +142,42 @@ package ld28
 			_player.recover();
 		}
 		
+		// Handles the case in which the player has reached the finish line
 		public function playerWon():void
 		{
 			++_curLevel;
 			startFadeOut();
+		}
+		
+		// Callback for when the fade in finishes
+		public function endFadeIn():void
+		{
+			_isFading = false;
+		}
+		
+		// Callback for when the fade out finishes
+		// Removes current level and loads new one
+		public function endFadeOut():void
+		{
+			_isFading = false;
+			
+			// Remove maps and players from the update loop
+			for (var i:uint = 0; i < Settings.NUM_COLOURS; ++i)
+			{
+				remove(_colourMaps[i]);
+			}
+			remove(_player);
+			remove(_finishLine);
+			
+			// Check if the game is finished, and if not load the next level
+			if (_curLevel >= Assets.NUM_LEVELS)
+			{
+				FP.world = new WinWorld();
+			}
+			else
+			{
+				loadLevel(Assets.LEVEL_DATA[_curLevel], Assets.LEVEL_INFO[_curLevel]);
+			}
 		}
 		
 		////////////////////////////////////////
@@ -164,22 +191,20 @@ package ld28
 		
 		private static const RESET_TIME_THRESHOLD:Number = 0.5;
 		
-		private static const FADE_IN_TOTAL_TIME:Number  = 2.0;
-		private static const FADE_OUT_TOTAL_TIME:Number = 2.0;
+		private static const FADE_IN_TOTAL_TIME:Number  = 0.5;
+		private static const FADE_OUT_TOTAL_TIME:Number = 1.0;
 		
 		private var _curColour:uint = 0;
 		private var _curLevel:uint  = 0;
 		
-		private var _player:Player         = null;
-		private var _colourMaps:Array      = null;
-		private var _finishLine:FinishLine = null;
+		private var _player:Player             = null;
+		private var _colourMaps:Array          = null;
+		private var _finishLine:FinishLine     = null;
+		private var _fadeForeground:Foreground = null;
 		
 		private var _resetTime:Number = 0.0;
 		
-		private var _fadeInTimer:Number  = 0.0;
-		private var _fadeOutTimer:Number = 0.0;
-		private var _isFadingIn:Boolean  = false;
-		private var _isFadingOut:Boolean = false;
+		private var _isFading:Boolean = false;
 		
 		// Changes the colour of the map displayed (and interacted with)
 		private function changeColour(colour:uint):void
@@ -224,42 +249,21 @@ package ld28
 			// We need to force it because it's probably that the RESET_TIME_THRESHOLD
 			// has not been elapsed yet
 			reset(true);
+			
+			// Start the fade in to show the recently loaded level
+			startFadeIn();
 		}
 		
 		private function startFadeIn():void
 		{
-			_fadeInTimer = FADE_IN_TOTAL_TIME;
-		}
-		
-		private function endFadeIn():void
-		{
-			loadLevel(Assets.LEVEL_DATA[_curLevel], Assets.LEVEL_INFO[_curLevel]);
+			_isFading = true;
+			_fadeForeground.fadeIn(FADE_IN_TOTAL_TIME, this.endFadeIn);
 		}
 		
 		private function startFadeOut():void
 		{
-			_fadeOutTimer = FADE_OUT_TOTAL_TIME;
-		}
-		
-		private function endFadeOut():void
-		{
-			// Remove maps and players from the update loop
-			for (var i:uint = 0; i < Settings.NUM_COLOURS; ++i)
-			{
-				remove(_colourMaps[i]);
-			}
-			remove(_player);
-			remove(_finishLine);
-			
-			// Check if the game is finished, and if not load the next level
-			if (_curLevel >= Assets.NUM_LEVELS)
-			{
-				trace("The player has won the game!");
-			}
-			else
-			{
-				startFadeIn();
-			}
+			_isFading = true;
+			_fadeForeground.fadeOut(FADE_OUT_TOTAL_TIME, this.endFadeOut);
 		}
 	}
 

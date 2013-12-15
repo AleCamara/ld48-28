@@ -25,6 +25,15 @@ package ld28
 		// Finish line
 		[Embed(source = "../../assets/textures/finish_line.png")] public static const FINISH_LINE:Class;
 		
+		// Title background image
+		[Embed(source = "../../assets/textures/title_screen.png")] public static const TITLE_BACKGROUND:Class;
+		
+		// Title press enter button
+		[Embed(source = "../../assets/textures/press_enter.png")] public static const TITLE_BUTTON:Class;
+		
+		// Win background image
+		[Embed(source = "../../assets/textures/win_screen.png")] public static const WIN_BACKGROUND:Class;
+		
 		// Actual data for creating levels
 		[Embed(source = "../../assets/levels/level_dummy.png")] public static const LEVEL_0:Class;
 		
@@ -52,6 +61,8 @@ package ld28
 											   0xFF9F869D,
 											   0xFF9F869D,
 											   0xFF9F869D];
+
+		public static const FADE_COLOUR_RESET:uint = 0xFF404040;
 		
 		// Tile for when colours overlap
 		public static var OVERLAPPING_TILE:BitmapData       = new BitmapData(16, 16, true, 0x00FFFFFF);
