@@ -1,0 +1,50 @@
+#!/bin/bash
+
+OGGENC=/C/bin/oggenc2.exe
+LAME=/C/bin/lame.exe
+
+###############
+## CHARACTER ##
+###############
+montage ../assets/raw/player_[0-1].png -tile 2x -geometry 16x32+0+0 -background transparent ../assets/textures/player.png
+
+###############
+## TUTORIALS ##
+###############
+cp ../assets/raw/tutorial_[0-5].png  ../assets/levels/
+
+############
+## LEVELS ##
+############
+cp ../assets/raw/level_{0..14}.png  ../assets/levels/
+
+#################
+## FINISH LINE ##
+#################
+montage ../assets/raw/finish_line_[0-3].png -tile 4x -geometry 32x64+0+0 -background transparent ../assets/textures/finish_line.png
+
+##################
+## TITLE SCREEN ##
+##################
+# title screen
+cp ../assets/raw/title_screen.png ../assets/textures/title_screen.png
+
+# press enter button
+montage ../assets/raw/press_enter_[0-3].png -tile 1x -geometry 656x80+0+0 -background transparent ../assets/textures/press_enter.png
+
+################
+## WIN SCREEN ##
+################
+cp ../assets/raw/win_screen.png ../assets/textures/win_screen.png
+
+######################
+## MUSIC AND SOUNDS ##
+######################
+$LAME ../assets/raw/main_theme_modified.wav ../assets/audio/main_theme.mp3
+$LAME ../assets/raw/jump.wav ../assets/audio/jump.mp3
+$LAME ../assets/raw/teleport.wav ../assets/audio/teleport.mp3
+$LAME ../assets/raw/falling_down.wav ../assets/audio/falling_down.mp3
+$LAME ../assets/raw/colour_0.wav ../assets/audio/colour_0.mp3
+$LAME ../assets/raw/colour_1.wav ../assets/audio/colour_1.mp3
+$LAME ../assets/raw/colour_2.wav ../assets/audio/colour_2.mp3
+$LAME ../assets/raw/colour_3.wav ../assets/audio/colour_3.mp3

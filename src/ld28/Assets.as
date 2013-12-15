@@ -3,6 +3,7 @@ package ld28
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import ld28.level.LevelInfo;
+	import net.flashpunk.Sfx;
 	
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
@@ -33,6 +34,16 @@ package ld28
 		
 		// Win background image
 		[Embed(source = "../../assets/textures/win_screen.png")] public static const WIN_BACKGROUND:Class;
+		
+		// Music and sound effects
+		[Embed(source = "../../assets/audio/main_theme.mp3")]   public static const MUSIC:Class;
+		[Embed(source = "../../assets/audio/jump.mp3")]         public static const SND_JUMP:Class;
+		[Embed(source = "../../assets/audio/teleport.mp3")]     public static const SND_TELEPORT:Class;
+		[Embed(source = "../../assets/audio/falling_down.mp3")] public static const SND_FALLING_DOWN:Class;
+		[Embed(source = "../../assets/audio/colour_0.mp3")]     public static const SND_COLOUR_0:Class;
+		[Embed(source = "../../assets/audio/colour_1.mp3")]     public static const SND_COLOUR_1:Class;
+		[Embed(source = "../../assets/audio/colour_2.mp3")]     public static const SND_COLOUR_2:Class;
+		[Embed(source = "../../assets/audio/colour_3.mp3")]     public static const SND_COLOUR_3:Class;
 		
 		// Actual data for creating levels
 		[Embed(source = "../../assets/levels/tutorial_0.png")] public static const TUTORIAL_0:Class;
@@ -83,6 +94,18 @@ package ld28
 		public static var OVERLAPPING_TILE:BitmapData       = new BitmapData(16, 16, true, 0x00FFFFFF);
 		public static var OVERLAPPING_TILE_TOTAL:BitmapData = new BitmapData(16, 16, true, 0x00000000);
 		
+		// Music and sound effects
+		public static var MUSIC_SFX:Sfx            = new Sfx(MUSIC);
+		public static var SND_JUMP_SFX:Sfx         = new Sfx(SND_JUMP);
+		public static var SND_TELEPORT_SFX:Sfx     = new Sfx(SND_TELEPORT);
+		public static var SND_FALLING_DOWN_SFX:Sfx = new Sfx(SND_FALLING_DOWN);
+		public static var SND_COLOUR_SFX:Array     = [
+				new Sfx(SND_COLOUR_0),
+				new Sfx(SND_COLOUR_1),
+				new Sfx(SND_COLOUR_2),
+				new Sfx(SND_COLOUR_3)
+			];
+		
 		public static const LEVEL_DATA:Array = [
 				TUTORIAL_0,
 				TUTORIAL_1,
@@ -121,9 +144,9 @@ package ld28
 					"When I was a kid I was so angry with my condition that I HAD to learn a trick."),
 				new LevelInfo(3, 18, 46,  7, 0, "03:\nQuite the trick",
 					"Now if I scowl in a certain way, I can strain my eyes to a point I can see other colours."),
-				new LevelInfo(1, 25, 56, 20, 0, "04:\nReality?",
+				new LevelInfo(2, 26, 56, 28, 0, "04:\nReality?",
 					"Unfortunately, I'm still cursed to see only one colour at a time. It still feels like walking through walls all the time."),
-				new LevelInfo(2, 26, 56, 28, 0, "05:\nAdventurer",
+				new LevelInfo(1, 25, 56, 20, 0, "05:\nAdventurer",
 					"Despite this stupid scowl trick, I won't be able to reach my dream: be an adventurer."),
 				new LevelInfo(0, 27, 18, 31, 0, "06:\nUps and downs",
 					"I won't be able to climb the highest mountain on Earth or to explore the deepest chasm of the ocean."),
@@ -148,7 +171,7 @@ package ld28
 					"Nothing.")
 			];
 		public static const NUM_LEVELS:uint     = LEVEL_INFO.length;
-		public static const STARTING_LEVEL:uint = 0;
+		public static const STARTING_LEVEL:uint = 9;
 		
 		// Final sentences
 		public static const FINAL_SENTENCES:Array = [

@@ -67,6 +67,7 @@ package ld28.entity
 			}
 			if (Input.pressed(KEY_UP) && (_timeFlying < TIMEFLYING_THRESHOLD))
 			{
+				Assets.SND_JUMP_SFX.play();
 				_speedY -= JUMP_THRUST;
 			}
 			if (Input.released(KEY_UP) && (_speedY < 0))
@@ -131,6 +132,7 @@ package ld28.entity
 			// Check out of vertical bound case
 			if (Settings.SCREEN_MAX_Y < y)
 			{
+				Assets.SND_FALLING_DOWN_SFX.play();
 				_level.playerFell();
 			}
 			
@@ -157,6 +159,7 @@ package ld28.entity
 			// Player must be on the ground and colliding with the finish line
 			if (!_isFlying && collide(FinishLine.COLLIDER_TYPE, x, y) != null)
 			{
+				Assets.SND_TELEPORT_SFX.play();
 				_level.playerWon();
 			}
 		}

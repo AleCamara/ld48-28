@@ -57,7 +57,7 @@ package ld28
 		public static const FINISH_LINE_WIDTH:uint     = 32;
 		public static const FINISH_LINE_HEIGHT:uint    = 64;
 		public static const FINISH_LINE_FRAMES:Array   = [0, 1, 2, 3];
-		public static const FINISH_LINE_FRAMERATE:uint = 8;
+		public static const FINISH_LINE_FRAMERATE:uint = 4;
 		
 		// Title screen information
 		public static const TITLE_BUTTON_WIDTH:uint       = 656;

@@ -261,11 +261,19 @@ package ld28.world
 		
 		private var _isFinalLevel:Boolean = false;
 		
+		private var _isFirstChangeColour:Boolean = true;
+		
 		// Changes the colour of the map displayed (and interacted with)
 		private function changeColour(colour:uint):void
 		{
 			if (!_player.collide("colour" + colour, _player.x, _player.y))
 			{
+				if (!_isFirstChangeColour && (colour != _curColour))
+				{
+					Assets.SND_COLOUR_SFX[colour].play();
+				}
+				_isFirstChangeColour = false;
+				
 				_colourMaps[_curColour].visible = false;
 				_curColour = colour;
 				_colourMaps[_curColour].visible = true;
@@ -290,6 +298,8 @@ package ld28.world
 			_descriptionText.visible = true;
 			
 			_titleTimer = TIME_TITLE_DISPLAY;
+			
+			_isFirstChangeColour = true;
 		}
 		
 		// The level loading can proceed

@@ -26,8 +26,10 @@ package ld28
 			// Initialise assets
 			Assets.init();
 			
+			Assets.MUSIC_SFX.loop();
+			
 			// Initialise text options
-			Text.wordWrap = true;			
+			Text.wordWrap = true;
 			
 			// Enable FlashPunk debug console
 			//FP.console.enable();
