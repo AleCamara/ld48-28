@@ -5,7 +5,7 @@
     <movie outputType="Application" />
     <movie input="" />
     <movie path="bin\LD4828.swf" />
-    <movie fps="30" />
+    <movie fps="60" />
     <movie width="970" />
     <movie height="570" />
     <movie version="10" />

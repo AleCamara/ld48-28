@@ -171,7 +171,7 @@ package ld28
 					"Nothing.")
 			];
 		public static const NUM_LEVELS:uint     = LEVEL_INFO.length;
-		public static const STARTING_LEVEL:uint = 9;
+		public static const STARTING_LEVEL:uint = 0;
 		
 		// Final sentences
 		public static const FINAL_SENTENCES:Array = [
